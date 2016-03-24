@@ -4,11 +4,12 @@ require_relative 'highscore'
 class Game
   @guess_history = GuessHistory.new
   @highscore = Highscore.new
-  @@code = []
-  @@colors = ["r", "g", "b", "y"]
+
 
   def initialize
     generate_code
+    @code = []
+    @colors = ["r", "g", "b", "y"]
   end
 
   def start
@@ -24,7 +25,7 @@ class Game
   def generate_code
     4.times do |i|
       rand_num = Random.new.rand(4)
-      @@code.push(@@colors[rand_num])
+      @code.push(@colors[rand_num])
     end
 
 
@@ -46,7 +47,7 @@ class Game
   end
 
   def check_guess(guess)
-    if guess == @@code
+    if guess == @code
       puts "you guessed correctly!"
     else
       puts "You're guess had #{check_pos(guess)} pegs in the correct position and #{check_color(guess)} correct colors."
@@ -59,7 +60,7 @@ class Game
 
     correct_num_colors =
       guess_uniq.count do |value|
-        @@code.include?(value)
+        @code.include?(value)
       end
 
   end
@@ -68,7 +69,7 @@ class Game
     num_correct_pos = 0
 
     guess.each_index do |i|
-      if guess[i] == @@code[i]
+      if guess[i] == @code[i]
         num_correct_pos += 1
       end
     end
@@ -77,7 +78,7 @@ class Game
 
   def check_for_cheat(guess)
     if guess == 'c'
-      puts "You Cheater! The answer is #{@@code.join(",")}"
+      puts "You Cheater! The answer is #{@code.join(",")}"
     end
   end
 end

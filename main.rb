@@ -1,9 +1,7 @@
 require_relative 'game'
 require_relative 'highscore'
 
-
 $state = "menu"
-
 
 def print_menu
   puts "-------------------------------------------------"
@@ -14,7 +12,7 @@ def print_menu
 end
 
 def getInput
-  print "Please enter a command:"
+  print "Please enter a command: "
   input = gets.chomp.upcase
 
   case input

@@ -8,14 +8,18 @@ class Game
     @colors = ["r", "g", "b", "y"]
     @guess_history = GuessHistory.new
     @highscore = Highscore.new
+    @running = true
 
     generate_code
   end
 
   def start
-    running = true
 
-    while running
+
+    puts "I have generated a beginner sequence with four elements made up of: "
+    puts "(r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+
+    while @running
       guess = get_guess
       check_guess(guess)
     end
@@ -35,6 +39,7 @@ class Game
     guess = gets.chomp
 
     while guess.length != 4 || guess.length == 1
+      check_for_quit(guess)
       check_for_cheat(guess)
       print "Please enter a valid guess: "
       guess = gets.chomp
@@ -74,8 +79,15 @@ class Game
   end
 
   def check_for_cheat(guess)
-    if guess == 'c'
+    if guess == 'c' || guess == "cheat"
       puts "You Cheater! The answer is #{@code.join(",")}"
+    end
+  end
+
+  def check_for_quit(guess)
+    if guess == 'q' || guess == 'quit'
+      puts "Thank you for playing!"
+      @running = false
     end
   end
 end

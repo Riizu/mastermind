@@ -2,15 +2,14 @@ require_relative 'guess_history'
 require_relative 'highscore'
 
 class Game
-  @guess_history = GuessHistory.new
-  @highscore = Highscore.new
-
 
   def initialize
     @code = []
     @colors = ["r", "g", "b", "y"]
-    generate_code
+    @guess_history = GuessHistory.new
+    @highscore = Highscore.new
 
+    generate_code
   end
 
   def start
@@ -28,8 +27,6 @@ class Game
       rand_num = Random.new.rand(4)
       @code.push(@colors[rand_num])
     end
-
-
   end
 
   def get_guess
@@ -44,7 +41,6 @@ class Game
     end
 
     guess = guess.split("")
-
   end
 
   def check_guess(guess)

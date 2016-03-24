@@ -7,9 +7,10 @@ class Game
 
 
   def initialize
-    generate_code
     @code = []
     @colors = ["r", "g", "b", "y"]
+    generate_code
+
   end
 
   def start

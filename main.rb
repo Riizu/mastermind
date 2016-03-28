@@ -15,7 +15,7 @@ while running
     ui.user_prompt(state_machine)
   when "game_start"
     game = Game.new
-    game.start(state_machine)
+    game.start(state_machine,ui)
   when "highscore"
     ui.user_prompt(state_machine)
   when "instructions"

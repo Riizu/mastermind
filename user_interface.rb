@@ -48,4 +48,9 @@ class UserInterface
       state_machine.current_state = "exit"
     end
   end
+
+  def game_start_prompt(difficulty)
+    puts "I have generated a beginner sequence with four elements made up of: "
+    puts "(r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+  end
 end

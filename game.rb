@@ -10,23 +10,22 @@ class Game
     @guess_history = GuessHistory.new
     @highscore = Highscore.new
     @running = true
-
-    generate_code
+    @difficulty = ""
   end
 
-  def start(state_machine)
-
-    puts "I have generated a beginner sequence with four elements made up of: "
-    puts "(r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+  def start(state_machine,ui)
+    generate_code
+    ui.game_start_prompt(@difficulty)
 
     while @running
-      guess = get_guess
-      check_guess(guess)
+      check_guess(get_guess,ui)
     end
+
     state_machine.current_state = "menu"
   end
 
   def generate_code
+    @code = []
     4.times do |i|
       rand_num = Random.new.rand(4)
       @code.push(@colors[rand_num])
@@ -34,24 +33,37 @@ class Game
   end
 
   def get_guess
-    guess = ""
     print "Please enter a guess: "
     guess = gets.chomp
 
-    while guess.length != 4 || guess.length == 1
-      check_for_quit(guess)
-      check_for_cheat(guess)
-      print "Please enter a valid guess: "
+    check_for_quit(guess)
+    check_for_cheat(guess)
+
+    while guess.length != 4
+      if guess.length < 4
+        print "Your guess is too short. Please enter a valid guess: "
+      elsif guess.length > 4
+        print "Your guess is too long. Please enter a valid guess: "
+      end
       guess = gets.chomp
     end
 
     guess = guess.split("")
   end
 
-  def check_guess(guess)
+  def check_guess(guess,ui)
     if guess == @code
-      puts "you guessed correctly!"
-      @running = false
+      puts "Congratulations! You guessed the sequence \"#{@code.join}\" in #{@num_guesses} guesses over #{@game_time}."
+      puts "Do you want to (P)lay again or (E)xit?"
+      input = gets.chomp.upcase
+
+      if input == "P"
+        generate_code
+        ui.game_start_prompt(@difficulty)
+
+      elsif input == "E"
+        @running = false
+      end
     else
       puts "You're guess had #{check_pos(guess)} pegs in the correct position and #{check_color(guess)} correct colors."
     end

@@ -1,5 +1,6 @@
 require_relative 'guess_history'
 require_relative 'highscore'
+require_relative 'state_machine'
 
 class Game
 
@@ -13,8 +14,7 @@ class Game
     generate_code
   end
 
-  def start
-
+  def start(state_machine)
 
     puts "I have generated a beginner sequence with four elements made up of: "
     puts "(r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
@@ -23,7 +23,7 @@ class Game
       guess = get_guess
       check_guess(guess)
     end
-    $state = "menu"
+    state_machine.current_state = "menu"
   end
 
   def generate_code
@@ -51,6 +51,7 @@ class Game
   def check_guess(guess)
     if guess == @code
       puts "you guessed correctly!"
+      @running = false
     else
       puts "You're guess had #{check_pos(guess)} pegs in the correct position and #{check_color(guess)} correct colors."
     end
@@ -64,7 +65,6 @@ class Game
       guess_uniq.count do |value|
         @code.include?(value)
       end
-
   end
 
   def check_pos(guess)

@@ -52,7 +52,7 @@ class Game
     if guess == @code
       end_time = Time.now
       puts "Congratulations! You guessed the sequence \"#{@code.join}\" in #{@num_guesses} guesses over #{(end_time - @beginning_time).to_i} seconds."
-      puts "Do you want to (P)lay again or (E)xit?"
+      puts "Do you want to (P)lay again or (Q)uit?"
       input = gets.chomp.upcase
 
       if input == "P"
@@ -61,7 +61,7 @@ class Game
         @beginning_time = Time.now
         ui.game_start_prompt(@difficulty)
 
-      elsif input == "E"
+      elsif input == "Q"
         @running = false
       end
     else

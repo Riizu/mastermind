@@ -29,7 +29,7 @@ class UserInterface
     puts "-------------------------------------------------"
     puts "|                 welcome to                    |"
     puts "|                 MASTERMIND                    |"
-    puts "|  (P)lay (H)igh Scores (I)nstructions (E)xit   |"
+    puts "|  (P)lay (H)igh Scores (I)nstructions (Q)uit   |"
     puts "-------------------------------------------------"
   end
 
@@ -44,7 +44,7 @@ class UserInterface
       state_machine.current_state = "highscore"
     when "I"
       state_machine.current_state = "instructions"
-    when "E"
+    when "Q"
       state_machine.current_state = "exit"
     end
   end

@@ -1,17 +1,12 @@
-require_relative 'guess_history'
-require_relative 'highscore'
-require_relative 'state_machine'
-
 class Game
 
   def initialize
     @code = []
     @colors = ["r", "g", "b", "y"]
-    @guess_history = GuessHistory.new
-    @highscore = Highscore.new
     @running = true
     @difficulty = ""
     @beginning_time = Time.now
+    @num_guesses = 0
   end
 
   def start(state_machine,ui)
@@ -53,6 +48,7 @@ class Game
   end
 
   def check_guess(guess,ui)
+    @num_guesses += 1
     if guess == @code
       end_time = Time.now
       puts "Congratulations! You guessed the sequence \"#{@code.join}\" in #{@num_guesses} guesses over #{(end_time - @beginning_time).to_i} seconds."
@@ -61,6 +57,8 @@ class Game
 
       if input == "P"
         generate_code
+        @num_guesses = 0
+        @beginning_time = Time.now
         ui.game_start_prompt(@difficulty)
 
       elsif input == "E"

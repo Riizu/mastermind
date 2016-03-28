@@ -1,5 +1,4 @@
 require_relative 'game'
-require_relative 'highscore'
 require_relative 'state_machine'
 require_relative 'user_interface'
 

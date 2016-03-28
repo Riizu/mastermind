@@ -11,6 +11,7 @@ class Game
     @highscore = Highscore.new
     @running = true
     @difficulty = ""
+    @beginning_time = Time.now
   end
 
   def start(state_machine,ui)
@@ -53,7 +54,8 @@ class Game
 
   def check_guess(guess,ui)
     if guess == @code
-      puts "Congratulations! You guessed the sequence \"#{@code.join}\" in #{@num_guesses} guesses over #{@game_time}."
+      end_time = Time.now
+      puts "Congratulations! You guessed the sequence \"#{@code.join}\" in #{@num_guesses} guesses over #{(end_time - @beginning_time).to_i} seconds."
       puts "Do you want to (P)lay again or (E)xit?"
       input = gets.chomp.upcase
 

@@ -15,8 +15,6 @@ while running
   when "game_start"
     game = Game.new
     game.start(state_machine,ui)
-  when "highscore"
-    ui.user_prompt(state_machine)
   when "instructions"
     ui.print_instructions
     ui.print_menu
